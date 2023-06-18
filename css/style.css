@@ -1,0 +1,44 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hide {
+    display: none;
+}
+
+.quiz-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quiz-wrap .choises {
+    display: flex;
+    flex-direction: column;
+}
+
+.quiz-wrap .choises button {
+padding: 4px 25px;
+}
+
+.quiz-wrap .choises button:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.btn {
+    padding: 4px 25px;
+    font-size: large;
+}
+
+#timer {
+ position: absolute;
+margin-left: 97%;
+margin-bottom: 48%;
+    
+}
