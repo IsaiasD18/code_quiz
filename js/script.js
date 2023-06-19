@@ -6,6 +6,8 @@ var timerEl = document.getElementById('timer');
 var currentQuestionIndex = 0;
 var input = document.querySelector('#name-input');
 var form = document.querySelector('#user-form');
+var choises = document.querySelector('.choises');
+var questionsEl = document.querySelector('.questions');
 
 
 //create a button element and store it to a variable
@@ -39,7 +41,36 @@ function countdown() {
 //function shows the current question
 function showCurrentQ() {
   // store the question object to a variable
-var qObject = questionData[currentQuestionIndex];
+var currentQuestion = questionData[currentQuestionIndex];
+// update title with current question
+questionsEl.children[0].textContent = currentQuestion.title;
+// clear out any old question choices
+while (choises.hasChildNodes()) {
+  choises.removeChild(choises.lastChild);
+}
+// loop over choices
+for(var i = 0; i < currentQuestion.choices.length; i++){
+
+  // create new button for each choice
+  var choiceButton = document.createElement("button");
+  choiceButton.textContent = currentQuestion.choices[i];
+  
+  // display on the page
+  choicesEl.appendChild(choiceButton);
+}
+// attach click event listener to each choice
+choicesEl.children[0].addEventListener("click", function(event){
+  questionClick(choicesEl.children[0]);
+});
+choicesEl.children[1].addEventListener("click", function(event){
+  questionClick(choicesEl.children[1]);
+});
+choicesEl.children[2].addEventListener("click", function(event){
+  questionClick(choicesEl.children[2]);
+});
+choicesEl.children[3].addEventListener("click", function(event){
+  questionClick(choicesEl.children[3]);
+});
 
 }
 button.classList.add('hide');
