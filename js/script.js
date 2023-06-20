@@ -8,6 +8,7 @@ var input = document.querySelector('#name-input');
 var form = document.querySelector('#user-form');
 var choises = document.querySelector('.choises');
 var questionsEl = document.querySelector('.questions');
+var feedbackEl = document.querySelector(".feedback");
 
 
 //create a button element and store it to a variable
@@ -56,23 +57,56 @@ for(var i = 0; i < currentQuestion.choices.length; i++){
   choiceButton.textContent = currentQuestion.choices[i];
   
   // display on the page
-  choicesEl.appendChild(choiceButton);
+  choices.appendChild(choiceButton);
 }
 // attach click event listener to each choice
-choicesEl.children[0].addEventListener("click", function(event){
-  questionClick(choicesEl.children[0]);
+choices.children[0].addEventListener("click", function(event){
+  questionClick(choices.children[0]);
 });
-choicesEl.children[1].addEventListener("click", function(event){
-  questionClick(choicesEl.children[1]);
+choices.children[1].addEventListener("click", function(event){
+  questionClick(choices.children[1]);
 });
-choicesEl.children[2].addEventListener("click", function(event){
-  questionClick(choicesEl.children[2]);
+choices.children[2].addEventListener("click", function(event){
+  questionClick(choices.children[2]);
 });
-choicesEl.children[3].addEventListener("click", function(event){
-  questionClick(choicesEl.children[3]);
+choices.children[3].addEventListener("click", function(event){
+  questionClick(choices.children[3]);
 });
 
 }
+
+//create a function to show what happen if they gessed wrog
+function questionClick(answerChoice) {
+  if(answerChoice.textContent != questionData[currentQuestionIndex].answer){
+    // take time from the timer
+    time -= 10;
+    // display new time on page
+    feedbackEl.textContent = "Incorrect";
+  }
+  else{
+    feedbackEl.textContent = "Correct";
+  }
+
+  // show the feedback for half of a second
+  feedbackEl.setAttribute("class", "feedback");
+  setInterval(function(){
+    feedbackEl.setAttribute("class", "feedback hide");
+  }, 500);
+
+  // move to next question
+  currentQuestionIndex++;
+
+  // check if there are questions left
+  if(currentQuestionIndex === questionsData.length)
+    // quizEnd
+    quizEnd();
+  // else 
+  else
+    // getQuestion
+    showCurrentQ();
+}
+
+
 button.classList.add('hide');
 
 //This function will show the question when the buttom is clicked
