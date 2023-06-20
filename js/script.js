@@ -15,7 +15,7 @@ var submitBtn = document.querySelector("#submit");
 //Create a variable containig the element that will have the start button
 var startBtn = document.querySelector("#start");
 //Create a variable containig the element that will have the user's initals
-var initials = document.querySelector("#initials");
+var initialsEl = document.querySelector("#initials");
 //Create a variable containig the element that will have the incorrect/correct message
 var feedbackEl = document.querySelector("#feedback");
 
@@ -131,16 +131,39 @@ function clockUpdate() {
   
 }
 
-function checkForEnter(e) {
-  // check if e key is enter
-    // saveHighscore
-    if(e.keyCode === 13);
+//cretate a function that will save the user score to local storage
+function saveScore() {
+  // create a variable that will have the initials value
+  var initials = initialsEl.value;
+  
+  // get saved scores from localstorage
+    var highscores;
+     if(JSON.parse(localStorage.getItem("highscores")) != null)
+      highscores = JSON.parse(window.localStorage.getItem("highscores"));
+    else
+    //create an empty array for the new scores
+      highscores = [];
+    // create a new score object for the user
+    var newScore = {
+      initials: initials,
+      score: time
+    };
+    highscores.push(newScore);
+    // save to localstorage
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+  
 }
 
-// // user clicks button to submit initials
-// submitBtn.onclick = saveHighscore;
+function checkForEnter(e) {
+  // check if e key is enter
+    if(e.keyCode === 13);
+    saveScore();
+}
+
+// user clicks button to submit initials
+submitBtn.onclick = saveScore;
 
 // user clicks button to start quiz
 startBtn.onclick = startQ;
 
-initials.onkeyup = checkForEnter;
+initialsEl.onkeyup = checkForEnter;
