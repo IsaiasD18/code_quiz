@@ -4,6 +4,8 @@ var body = document.body;
 var timerEl = document.getElementById('timer');
 //create a variable that represents the current question that the user is on
 var currentQuestionIndex = 0;
+var time = questionsData.length * 15;
+var timerId;
 var input = document.querySelector('#name-input');
 var form = document.querySelector('#user-form');
 var choises = document.querySelector('.choises');
@@ -11,32 +13,22 @@ var questionsEl = document.querySelector('.questions');
 var feedbackEl = document.querySelector(".feedback");
 
 
-//create a button element and store it to a variable
-var button = document.createElement('button');
-//Add text to the button
-button.innerText = 'Start Quiz'
-//Add a clas to the button
-button.classList.add('btn');
-//Add the button to the body
-body.append(button);
+//create a function to start the quiz, this will hide the buttom and show it
+function startGame() {
+  // hide start screen
+  var startScreen = document.querySelector("#start-screen");
+  startScreen.setAttribute("class", "start hide");
 
-//create a funtion to display the countdown
-function countdown() {
-  // create a variable showing how much time is left
-  var timeLeft = 60;
+  // un-hide questions section
+  questionsEl.setAttribute("class", " ");
+  // start timer
+  timerId = setInterval(function(){
+    clockTick();
+  }, 1000);
+  // show starting time
+  timerEl.textContent = time;
 
-  //create a method that will call a function to be executed every second
-  var timeInterval = setInterval(function() {
-    //Decrease the time by one
-    timeLeft--;
-    //Display the time to the window
-    timerEl.innerText = timeLeft;
-
-    if (timeLeft === 0) {
-      clearInterval(timeInterval);
-      alert('Time is up!!')
-    }
-  }, 1000)
+  showCurrentQ();
 }
 
 //function shows the current question
@@ -61,23 +53,23 @@ for(var i = 0; i < currentQuestion.choices.length; i++){
 }
 // attach click event listener to each choice
 choices.children[0].addEventListener("click", function(event){
-  questionClick(choices.children[0]);
+  questionChoise(choices.children[0]);
 });
 choices.children[1].addEventListener("click", function(event){
-  questionClick(choices.children[1]);
+  questionChoise(choices.children[1]);
 });
 choices.children[2].addEventListener("click", function(event){
-  questionClick(choices.children[2]);
+  questionChoise(choices.children[2]);
 });
 choices.children[3].addEventListener("click", function(event){
-  questionClick(choices.children[3]);
+  questionChoise(choices.children[3]);
 });
 
 }
 
-//create a function to show what happen if they gessed wrog
-function questionClick(answerChoice) {
-  if(answerChoice.textContent != questionData[currentQuestionIndex].answer){
+//create a function to show what happen if they guessed wrog
+function questionChoise(ac) {
+  if(ac.textContent != questionData[currentQuestionIndex].answer){
     // take time from the timer
     time -= 10;
     // display new time on page
@@ -107,19 +99,6 @@ function questionClick(answerChoice) {
 }
 
 
-button.classList.add('hide');
-
-//This function will show the question when the buttom is clicked
-function startGame() {
-  //hide the start button
-button.classList.add('hide');
-//show the current question usinf the index
-showCurrentQ()
-countdown()
-}
-
-button.addEventListener('click', startGame);
-
 function getUserInput(eventObj) {
   eventObj.preventDefault();
 var initials = input.value;
@@ -135,3 +114,20 @@ localStorage.setItem('initials-value', initials);
 
 //prevent event default of the summit
 form.addEventListener('submit', getUserInput);
+
+function quizEnd() {
+  // stop timer
+  clearInterval(timerId);
+  timerEl.textContent = time;
+
+  // show end screen
+  var endScreenEl = document.querySelector("#user-form");
+  endScreenEl.setAttribute("class", " ");
+
+  // show final score
+  var finalScoreEl = document.querySelector(".score");
+  finalScoreEl.textContent = time;
+
+  // hide questions section
+  questionsEl.setAttribute("class", "hide");
+}
