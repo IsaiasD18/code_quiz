@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
     height: 100%;
 }
 
@@ -12,7 +11,6 @@ body {
 .hide {
     display: none;
 }
-
 
 
 
@@ -55,3 +53,26 @@ button {
     transition: background-color 0.1s;
   }
 
+  .feedback {
+    font-size: xx-large;
+    position: absolute;
+    top: 300px;
+    color: rgb(78, 179, 213);
+  }
+
+  .timer, .score, .ini {
+    background-color: lightskyblue;
+    color: white;
+  }
+
+  .score {
+    width: 63px;
+    height: 20px;
+    position: relative;
+    bottom: 251px;
+    left: 146px;
+  }
+
+  #question-title {
+    color:lightseagreen;
+  }
