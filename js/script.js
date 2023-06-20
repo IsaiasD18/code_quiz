@@ -6,6 +6,9 @@ var timerEl = document.getElementById('timer');
 var currentQuestionIndex = 0;
 var input = document.querySelector('#name-input');
 var form = document.querySelector('#user-form');
+var choises = document.querySelector('.choises');
+var questionsEl = document.querySelector('.questions');
+var feedbackEl = document.querySelector(".feedback");
 
 
 //create a button element and store it to a variable
@@ -39,9 +42,71 @@ function countdown() {
 //function shows the current question
 function showCurrentQ() {
   // store the question object to a variable
-var qObject = questionData[currentQuestionIndex];
+var currentQuestion = questionData[currentQuestionIndex];
+// update title with current question
+questionsEl.children[0].textContent = currentQuestion.title;
+// clear out any old question choices
+while (choises.hasChildNodes()) {
+  choises.removeChild(choises.lastChild);
+}
+// loop over choices
+for(var i = 0; i < currentQuestion.choices.length; i++){
+
+  // create new button for each choice
+  var choiceButton = document.createElement("button");
+  choiceButton.textContent = currentQuestion.choices[i];
+  
+  // display on the page
+  choices.appendChild(choiceButton);
+}
+// attach click event listener to each choice
+choices.children[0].addEventListener("click", function(event){
+  questionClick(choices.children[0]);
+});
+choices.children[1].addEventListener("click", function(event){
+  questionClick(choices.children[1]);
+});
+choices.children[2].addEventListener("click", function(event){
+  questionClick(choices.children[2]);
+});
+choices.children[3].addEventListener("click", function(event){
+  questionClick(choices.children[3]);
+});
 
 }
+
+//create a function to show what happen if they gessed wrog
+function questionClick(answerChoice) {
+  if(answerChoice.textContent != questionData[currentQuestionIndex].answer){
+    // take time from the timer
+    time -= 10;
+    // display new time on page
+    feedbackEl.textContent = "Incorrect";
+  }
+  else{
+    feedbackEl.textContent = "Correct";
+  }
+
+  // show the feedback for half of a second
+  feedbackEl.setAttribute("class", "feedback");
+  setInterval(function(){
+    feedbackEl.setAttribute("class", "feedback hide");
+  }, 500);
+
+  // move to next question
+  currentQuestionIndex++;
+
+  // check if there are questions left
+  if(currentQuestionIndex === questionsData.length)
+    // quizEnd
+    quizEnd();
+  // else 
+  else
+    // getQuestion
+    showCurrentQ();
+}
+
+
 button.classList.add('hide');
 
 //This function will show the question when the buttom is clicked
