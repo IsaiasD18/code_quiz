@@ -9,27 +9,33 @@
 </head>
 <body>
   <!-- Create a element that will contain the timer -->
-  
-  <div class="wrapper">
+
+  <div class="timer">Time: <span id="time">0</span></div>
+
+  <section class="wrapper">
+
     <div id="start-screen" class="start">
-      <button class="btn">Start Quiz</button>
-    </div>
- <h2 id="timer"></h2>
-<div class="quiz-wrap">
-  <h3 id="question-text"></h3>
-  <div class="choises" >
-  </div>
-  <form id="user-form" class="hide">
-    <!-- <label for="name-input">Enter Your Name:</label> -->
-    <p>Your final score is <span id="score"></span>.</p>
-    <input id="name-input" type="text" placeholder="Enter Your Initials">
-    <button>Submit</button>
+      <button  class="btn" id="start">Start Quiz</button>
+    </section>
+  
+    <section id="questions" class="hide quiz-wrap">
+      <h2 id="question-title"></h2>
+      <div id="choices" class="choices"></div>
+    </section>
+
+
+    <section id="end-screen" class="hide">
+      <p>Score: <span id="final-score"></span></p>
+      <p>
+        Enter initials: <input type="text" id="initials" />
+        <button id="submit">Submit</button>
+      </p>
+    </section>
 
     <div id="feedback" class="feedback hide"></div>
-  </form>
-</div>
+  </section>
 
- <script src="js/questions.js"></script>
-  <script src="js/script.js"></script>
+  <script src="./js/questions.js"></script>
+  <script src="./js/script.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-var questionData = [
+var questionsData = [
     {
         question: 'Which color is formed by mixing red and yellow?',
         choices: ['Green', 'Orange', 'Purple', 'Brown'],
