@@ -9,13 +9,19 @@
 </head>
 <body>
   <!-- Create a element that will contain the timer -->
+  
+  <div class="wrapper">
+    <div id="start-screen" class="start">
+      <button class="btn">Start Quiz</button>
+    </div>
  <h2 id="timer"></h2>
 <div class="quiz-wrap">
   <h3 id="question-text"></h3>
   <div class="choises" >
   </div>
-  <form id="user-form">
+  <form id="user-form" class="hide">
     <!-- <label for="name-input">Enter Your Name:</label> -->
+    <p>Your final score is <span id="score"></span>.</p>
     <input id="name-input" type="text" placeholder="Enter Your Initials">
     <button>Submit</button>
 
